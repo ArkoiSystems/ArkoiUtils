@@ -57,6 +57,8 @@ public class TreePrinter
         );
         
         if (fieldValues.size() != 0) {
+            printStream.println();
+            
             for (int index = 0; index < fieldValues.size(); index++) {
                 final Printable fieldPrintable = annotations.get(index);
                 final Object fieldValue = fieldValues.get(index);
