@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'groovy'
+}
+
+group 'com.arkoisystems'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: "org.jetbrains", name: "annotations", version: "19.0.0"
+    
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+    
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.8'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4-rc-2'
+}
