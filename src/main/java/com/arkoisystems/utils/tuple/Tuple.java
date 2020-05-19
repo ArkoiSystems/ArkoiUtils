@@ -8,7 +8,6 @@ package com.arkoisystems.utils.tuple;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @AllArgsConstructor
 @Getter
@@ -19,14 +18,13 @@ public class Tuple
     private final Object[] objects;
     
     @SuppressWarnings("unchecked")
-    @Nullable
     public <T> T get(final Class<T> clazz, final int index) {
         if (index >= this.objects.length - 1)
             throw new ArrayIndexOutOfBoundsException();
         
         final Object object = this.getObjects()[index];
         if (object.getClass() != clazz)
-            return null;
+            throw new NullPointerException("Wrong types");
         return (T) object;
     }
     
