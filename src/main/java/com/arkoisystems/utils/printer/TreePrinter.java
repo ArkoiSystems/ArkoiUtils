@@ -44,6 +44,8 @@ public class TreePrinter
             final boolean accessible = field.isAccessible();
             field.setAccessible(true);
             final Object fieldValue = field.get(object);
+            if(fieldValue == null)
+                continue;
             field.setAccessible(accessible);
             
             annotations.add(annotation);
