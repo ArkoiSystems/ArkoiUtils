@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TreePrinter
@@ -35,16 +36,16 @@ public class TreePrinter
     ) {
         final List<Object> fieldValues = new ArrayList<>();
         final List<Printable> annotations = new ArrayList<>();
-        
-        for (final Field field : object.getClass().getDeclaredFields()) {
+    
+        for (final Field field : getAllFields(new ArrayList<>(), object.getClass())) {
             final Printable annotation = field.getAnnotation(Printable.class);
             if (annotation == null)
                 continue;
-            
+        
             final boolean accessible = field.isAccessible();
             field.setAccessible(true);
             final Object fieldValue = field.get(object);
-            if(fieldValue == null)
+            if (fieldValue == null)
                 continue;
             field.setAccessible(accessible);
             
@@ -114,6 +115,14 @@ public class TreePrinter
         } else {
             printStream.println(object.toString());
         }
+    }
+    
+    @NotNull
+    private static List<Field> getAllFields(final @NotNull List<Field> fields, final @NotNull Class<?> type) {
+        fields.addAll(Arrays.asList(type.getDeclaredFields()));
+        if (type.getSuperclass() != null)
+            getAllFields(fields, type.getSuperclass());
+        return fields;
     }
     
 }
